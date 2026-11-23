@@ -97,10 +97,14 @@ export function useTaskManager(taskId?: string): UseTaskManagerReturn {
       const taskData = taskToSave || task;
       if (!taskData) throw new Error("No task data to save");
 
+      // Leave out the AI summary: only the summarize-comments function writes it,
+      // and this page may still hold an older copy of it.
+      const { ai_summary, ai_summary_at, ...fieldsToSave } = taskData;
+
       const { error } = await supabase
         .from("tasks")
         .update({
-          ...taskData,
+          ...fieldsToSave,
           due_date: date?.toISOString().split("T")[0],
           updated_at: new Date().toISOString(),
         })

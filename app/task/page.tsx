@@ -38,6 +38,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/components/hooks/use-toast";
 import Image from "next/image";
 import { useDropzone } from "react-dropzone";
+import TaskComments from "@/components/TaskComments";
 
 function TaskForm() {
   const params = useSearchParams();
@@ -275,6 +276,11 @@ function TaskForm() {
           </Button>
         </div>
       </form>
+      <TaskComments
+        taskId={task.task_id}
+        aiSummary={task.ai_summary}
+        aiSummaryAt={task.ai_summary_at}
+      />
     </div>
   );
 }
